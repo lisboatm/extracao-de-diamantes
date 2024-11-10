@@ -55,33 +55,40 @@ Para cada linha de entrada, você deve imprimir um número inteiro representando
 Aqui está o código utilizado para resolver o problema:
 
 ```python
-def extrair_diamantes(sequencia):
-    count = 0
-    pilha = []
+# Função para contar diamantes em uma string
+def count_diamonds(test_case):
+    stack = []
+    diamond_count = 0
 
-    # Percorre cada caractere da sequência
-    for char in sequencia:
+    # Ignora as partículas de areia, então consideramos apenas os símbolos '<' e '>'
+    for char in test_case:
         if char == '<':
-            # Empilha quando encontra um '<'
-            pilha.append(char)
-        elif char == '>' and pilha:
-            # Quando encontra um '>', remove o último '<' da pilha (formando um diamante)
-            pilha.pop()
-            count += 1
+            stack.append(char)
+        elif char == '>' and stack:
+            # Encontra um par <>, conta como um diamante
+            stack.pop()
+            diamond_count += 1
 
-    return count
+    return diamond_count
 
+# Função principal para o processo
 def main():
-    # Número de casos de teste
-    N = int(input())
-    
-    for _ in range(N):
-        sequencia = input()
-        # Calcula e imprime a quantidade de diamantes extraídos
-        print(extrair_diamantes(sequencia))
+    # Lê o número de casos de teste
+    n = int(input().strip())
+    results = []
 
-if __name__ == "__main__":
-    main()
+    for _ in range(n):
+        # Lê o caso de teste e processa
+        test_case = input().strip()
+        diamonds = count_diamonds(test_case)
+        results.append(str(diamonds))
+
+    # Exibe os resultados de todos os casos de teste
+    print("\n".join(results))
+
+# Executa a função principal
+main()
+
 ```
 
 ## Explicação do Código
